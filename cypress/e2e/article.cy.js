@@ -1,6 +1,6 @@
 const { generateArticle } = require('../support/generateArticle');
 
-describe('', () => {
+describe('Article flow', () => {
   beforeEach(() => {
     cy.task('generateUser').then((user) => {
       cy.login(user.email, user.username, user.password);
@@ -28,6 +28,8 @@ describe('', () => {
     cy.contains('a.preview-link', title).click();
     cy.contains('.banner button', 'Delete Article')
       .click();
-    cy.get('.article-preview').should('be.visible');
+    cy.contains('.nav-link', 'Global Feed').click();
+    cy.reload();
+    cy.contains(title).should('not.exist');
   });
 });
